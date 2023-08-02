@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="" id="items"></div>
+    </div>
+
+    <!-- <h1 class="bg-dark">hi</h1> -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+
+
+    <!-- a8167dc7-0fcf-47e0-b911-f510b53f5a90 -->
+    <!-- ddff3297-0e29-42a9-8fef-dec4a2b9413e -->
+    <!-- 2c4629c0-5f07-445a-9b97-dcc2a7b12976 -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+      ></script>
+      
+      <script>
+        let API_KEY = "a8167dc7-0fcf-47e0-b911-f510b53f5a90"
+
+
+        async function getData(){
+          let fetchData = await fetch(` https://api.cricapi.com/v1/currentMatches?apikey=${API_KEY}&offset=0`)
+          let data =await fetchData.json()
+          console.log(data)
+          let count =0
+
+          data.data.forEach((e)=>{
+            count++
+            let items =document.getElementById("items")
+            let div = document.createElement("div")
+            let h1 = document.createElement("h1")
+            h1.innerHTML = `${count}. ${e.teamInfo[0].name} <img src="${e.teamInfo[0].img}" style="width:2rem;"> vs ${e.teamInfo[1].name} <img src="${e.teamInfo[1].img}" style="width:2rem; height:100%;">`;
+            let Para = document.createElement("p")
+            Para.innerHTML=`run:${e.score[0].r} wicket:${e.score[0].w} Over:${e.score[0].o} inning:${e.score[0].inning.split(" ")[2]}`
+            
+
+
+            console.log(e.teamInfo[0])
+
+
+            div.append(h1,Para)
+            items.append(div)
+
+
+
+
+            
+            // console.log(e.date,e.id,e.teams[0],"vs",e.teams[1],`status is ${e.status}`)
+          })
+        }
+        getData()
+    </script>
+  </body>
+</html>
